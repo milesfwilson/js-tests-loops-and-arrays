@@ -4,6 +4,10 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+    let firstWord = arr[0]
+    arr.splice(0, 1)
+    arr.push(firstWord)
+    return arr
 }
 
 
@@ -16,6 +20,21 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+    let duplicates = 0
+    let obj = {}
+    let key = Math.max.apply(null, arr)
+    obj[key] = duplicates
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === key) {
+            ++duplicates
+            obj[key] = duplicates
+        }
+    }
+    if (duplicates > 1) {
+        return obj
+    } else {
+        return key
+    }
 }
 
 
@@ -28,6 +47,12 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+    let newArray = []
+    for (let i = 0; i < arr.length; i++) {
+        let newNum = (arr[i]) * (arr.length)
+        newArray.push(newNum)
+    }
+    return newArray
 }
 
 
@@ -41,9 +66,15 @@ function elemsTimesLength(arr) {
 // Primitive data types - https://developer.mozilla.org/en-US/docs/Glossary/Primitive
 
 function arrayFlattener(arr) {
-
+    let newArray = arr.flat(Number.MAX_SAFE_INTEGER)
+    let finalArray = []
+    for (let i = 0; i < newArray.length; i++) {
+        if (typeof newArray[i] == 'number' || typeof newArray[i] == 'string') {
+            finalArray.push(newArray[i])
+        }
+    }
+    return finalArray
 }
-
 
 // ------------------------------------------
 
@@ -75,9 +106,18 @@ let flights = [{
 
 
 function flightCost(destination, firstClass) {
-    //***hint: use the find method***
+    let newDestination = destination.toUpperCase()
 
+    for (let i = 0; i < flights.length; ++i) {
+        if (flights[i]['to'] === newDestination && firstClass) {
+            return flights[i]['prices']['firstClass']
+        } else if (flights[i]['to'] === newDestination && !firstClass) {
+            return flightPrice = flights[i]['prices']['standard']
+        } else {
+        }
+    }
 }
+
 
 
 // ------------------------------------------
@@ -97,8 +137,16 @@ let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'P
 { id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
 
 function findById(id) {
+    let errorMessage = { error: "No user with that id." }
 
+    for (let i = 0; i < staff.length; i++) {
+        if (staff[i]['id'] === id) {
+            return staff[i]
+        }
+    }
+    return { error: "No user with that id." }
 }
+
 
 
 // ------------------------------------------
@@ -124,4 +172,17 @@ let theBand = {
 }
 
 function bandMemberDetails(name) {
+
+    let newName = name.toUpperCase()
+
+    for (let i = 0; i < theBand['members'].length; i++) {
+
+        if (theBand['members'][i]['name'].toUpperCase().includes(newName)) {
+            return `${theBand['members'][i]['name']}` + " is in the band and plays the " + `${theBand['members'][i]['instrument']}`
+        } else {
+
+        }
+
+    }
+
 }
